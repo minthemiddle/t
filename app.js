@@ -1,21 +1,28 @@
 function todoApp() {
     return {
       taskTitle: '',
-      tasks: [],
+      tasks: JSON.parse(localStorage.getItem('tasks') || '[]'),
   
       addTask() {
         const title = this.taskTitle.trim();
         if (title !== '') {
-          this.tasks.push({
+          const newTask = {
             type: 'to-do',
             attributes: { title }
-          });
+          };
+          this.tasks.push(newTask);
           this.taskTitle = '';
+          this.saveTasksToLocalStorage();
         }
       },
   
       deleteTask(index) {
         this.tasks.splice(index, 1);
+        this.saveTasksToLocalStorage();
+      },
+  
+      saveTasksToLocalStorage() {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
       },
   
       copyTasks() {
@@ -26,3 +33,4 @@ function todoApp() {
       }
     };
   }
+  
