@@ -30,7 +30,12 @@ function todoApp() {
         const url = `open 'things:///json?data=${encodedTasks}'`;
         navigator.clipboard.writeText(url);
         alert('Tasks copied to clipboard!');
-      }
+      },
+
+      deleteAllTasks() {
+        this.tasks = [];
+        this.saveTasksToLocalStorage();
+    },
     };
   }
   
