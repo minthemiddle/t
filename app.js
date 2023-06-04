@@ -1,4 +1,4 @@
-function todoApp() {
+function app() {
     return {
       taskTitle: '',
       tasks: JSON.parse(localStorage.getItem('tasks') || '[]'),
