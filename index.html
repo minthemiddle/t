@@ -21,13 +21,21 @@
       <button @click="addTask" class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 rounded">Add Task</button>
     </div>
     <div id="taskList" class="space-y-2">
-      <template x-for="(task, index) in tasks" :key="index">
-        <div class="border border-gray-300 rounded px-4 py-2">
-          <input x-model="task.attributes.title" class="border-none outline-none" data-index="index">
-          <button @click="deleteTask(index)" class="text-red-500 font-bold px-2 py-1 rounded">Delete</button>
-        </div>
-      </template>
-    </div>
+        <template x-for="(task, index) in tasks" :key="index">
+          <div
+            class="flex border border-gray-300 rounded px-4 py-2"
+            x-data="taskData(index)"
+            draggable="true"
+            @dragstart="dragStart"
+            @dragover.prevent="dragOver"
+            @drop="drop(index)"
+          >
+            <input x-model="task.attributes.title" class="flex-1 border-none outline-none" data-index="index">
+            <button @click="deleteTask(index)" class="text-red-500 font-bold px-2 py-1 rounded">Delete</button>
+            <span class="cursor-move self-center" @dragstart.prevent="startDrag">❖</span>
+          </div>
+        </template>
+      </div>
     <div class="mt-4">
       <button @click="copyTasks" class="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded">Copy Tasks</button>
       <button @click="deleteAllTasks" class="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded">Delete Tasks</button>
